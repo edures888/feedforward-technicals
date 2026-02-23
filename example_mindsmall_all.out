@@ -1,0 +1,182 @@
+  base_dir                      : /workspace
+  pretrain_ckpt                 : None
+  data_path                     : /workspace/finetune_data/mind_small
+  output_dir                    : /workspace/checkpoints
+  ckpt                          : best_model.bin
+  hf_dir                        : hf_repo
+  model_name_or_path            : Alibaba-NLP/gte-modernbert-base
+  model_id                      : None
+  lora_dir                      : None
+  train_file                    : train.parquet
+  dev_file                      : dev.parquet
+  test_file                     : dev.parquet
+  item2id_file                  : ['smap.json']
+  impression2id_file            : imap.json
+  meta_file                     : ['meta_data.json']
+  log_dir                       : /workspace/logs
+  ext_val_data_path             : None
+  ext_val_meta_file             : None
+  unified                       : False
+  source_ref                    : ['mind_small']
+  preprocessing_num_workers     : 8
+  dataloader_num_workers        : 0
+  dataloader_multiprocessing    : True
+  temp                          : 0.05
+  freeze_temp                   : True
+  max_attr_num                  : 1
+  max_attr_length               : 32
+  max_token_num                 : 48
+  max_item_embeddings           : 48
+  token_pooling                 : cls
+  item_pooling                  : topk
+  item_pool_prenorm             : False
+  pooling_topk                  : 4
+  loss                          : multi_infonce
+  uniformity_lam                : None
+  score_redun_lam               : 20.0
+  redun_sim_thresh              : 0.95
+  contrast_margin               : 0.0
+  num_train_epochs              : 1
+  gradient_accumulation_steps   : 2
+  finetune_negative_sample_size : 1000
+  train_num_candidates_per_row  : 32
+  train_multiple_positives      : True
+  disable_item_sampling         : False
+  validation_steps              : 400
+  update_embeddings_steps       : None
+  mini_validation_size          : 1024
+  metric_ks                     : [5, 10]
+  train_batch_size              : 24
+  eval_batch_size               : 96
+  learning_rate                 : 0.0005
+  sas_learning_rate             : None
+  weight_decay                  : 0.001
+  warmup_steps                  : 50
+  max_grad_norm                 : 2.0
+  device                        : cuda:0
+  bf16                          : True
+  fix_word_embedding            : True
+  use_item_table                : False
+  freeze_lm                     : False
+  unfreeze_item_embeddings      : False
+  item_pad_id                   : 0
+  use_score_head                : False
+  score_mix_lam                 : 0.25
+  lora                          : True
+  lora_r                        : 16
+  lora_alpha                    : 32
+  lora_dropout                  : 0.1
+  lora_bias                     : all
+  verbose                       : 1
+  log_steps                     : 10
+  debug                         : False
+  small                         : False
+  profile                       : False
+  submission                    : False
+  benchmark                     : False
+  encoder_method                : bi_mix_topk_mean
+  padding_side                  : None
+  attn_implementation           : flash_attention_2
+  compile                       : False
+  symmetric                     : False
+  dtype                         : torch.bfloat16
+  instruction                   : Capture taste and match more of this text: 
+[Tokenizer] Using SEP as [SEP]
+Loading from ['meta_data.json']
+Tokenization input: /workspace/RecFormer/finetune_data/mind_small, Output: /workspace/RecFormer/finetune_data/mind_small/preprocess/tokenized_mind_small_encoder_bi_mix_topk_mean_1_32_48_Alibaba-NLP-gte-modernbert-base_tokens/train.parquet
+Tokenization input: /workspace/RecFormer/finetune_data/mind_small, Output: /workspace/RecFormer/finetune_data/mind_small/preprocess/tokenized_mind_small_encoder_bi_mix_topk_mean_1_32_48_Alibaba-NLP-gte-modernbert-base_tokens/dev.parquet
+LoRA chosen target modules:  .*\.attn\.(Wqkv|Wo)$|.*\.mlp\.(Wi|Wo)$
+trainable params: 3,379,200 || all params: 152,393,472 || trainable%: 2.2174
+Fix word embeddings.
+Tensorboard Writing to /workspace/logs/02-23_11:48_Alibaba-NLP--gte-modernbert-base--bi_mix_topk_mean--multi_infonce--lora
+Step 0 Dev Metrics: 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.64899	MRR       : 0.31409	Val Loss  : 11.28276
+Recall@5  : 0.46793	Recall@10 : 0.65994	
+MAP@5     : 0.37838	MAP@10    : 0.38832	
+NDCG@5    : 0.33629	NDCG@10   : 0.40327	
+HitRate@5 : 0.55176	HitRate@10: 0.74414	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##### EPOCH 0 #####
+##### Step 799 Mini Dev Metrics #####
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.67019	MRR       : 0.32598	Val Loss  : 7.25262
+Recall@5  : 0.48343	Recall@10 : 0.65355	
+MAP@5     : 0.39857	MAP@10    : 0.40767	
+NDCG@5    : 0.35343	NDCG@10   : 0.41385	
+HitRate@5 : 0.56543	HitRate@10: 0.74023	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##### Step 1599 Mini Dev Metrics #####
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.68172	MRR       : 0.34230	Val Loss  : 6.83049
+Recall@5  : 0.49583	Recall@10 : 0.66464	
+MAP@5     : 0.40946	MAP@10    : 0.41550	
+NDCG@5    : 0.36554	NDCG@10   : 0.42547	
+HitRate@5 : 0.57715	HitRate@10: 0.74707	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##### Step 2399 Mini Dev Metrics #####
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.68341	MRR       : 0.33199	Val Loss  : 6.61589
+Recall@5  : 0.50304	Recall@10 : 0.66774	
+MAP@5     : 0.40258	MAP@10    : 0.40677	
+NDCG@5    : 0.36097	NDCG@10   : 0.41989	
+HitRate@5 : 0.59277	HitRate@10: 0.75391	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##### Step 3199 Mini Dev Metrics #####
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.69126	MRR       : 0.33350	Val Loss  : 6.53346
+Recall@5  : 0.51851	Recall@10 : 0.66946	
+MAP@5     : 0.41788	MAP@10    : 0.42036	
+NDCG@5    : 0.37001	NDCG@10   : 0.42377	
+HitRate@5 : 0.60547	HitRate@10: 0.75391	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##### Step 3999 Mini Dev Metrics #####
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.69356	MRR       : 0.34601	Val Loss  : 6.29517
+Recall@5  : 0.51937	Recall@10 : 0.67662	
+MAP@5     : 0.42785	MAP@10    : 0.42773	
+NDCG@5    : 0.37747	NDCG@10   : 0.43414	
+HitRate@5 : 0.60352	HitRate@10: 0.76367	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##### Step 4799 Mini Dev Metrics #####
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.69942	MRR       : 0.34310	Val Loss  : 6.23246
+Recall@5  : 0.53189	Recall@10 : 0.68511	
+MAP@5     : 0.42112	MAP@10    : 0.42601	
+NDCG@5    : 0.37844	NDCG@10   : 0.43285	
+HitRate@5 : 0.61816	HitRate@10: 0.77344	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##### Step 5599 Mini Dev Metrics #####
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.69717	MRR       : 0.34268	Val Loss  : 6.13561
+Recall@5  : 0.52869	Recall@10 : 0.67689	
+MAP@5     : 0.41880	MAP@10    : 0.42626	
+NDCG@5    : 0.37858	NDCG@10   : 0.43168	
+HitRate@5 : 0.61230	HitRate@10: 0.76660	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+##### Step 6399 Mini Dev Metrics #####
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.69759	MRR       : 0.34279	Val Loss  : 6.11627
+Recall@5  : 0.52564	Recall@10 : 0.67966	
+MAP@5     : 0.41989	MAP@10    : 0.42178	
+NDCG@5    : 0.37676	NDCG@10   : 0.43161	
+HitRate@5 : 0.61426	HitRate@10: 0.76465	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Epoch: 0. Dev set: 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AUC       : 0.69315	MRR       : 0.34622	Val Loss  : 6.09490
+Recall@5  : 0.52765	Recall@10 : 0.69938	
+MAP@5     : 0.43216	MAP@10    : 0.43395	
+NDCG@5    : 0.38261	NDCG@10   : 0.44320	
+HitRate@5 : 0.60794	HitRate@10: 0.77692	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
