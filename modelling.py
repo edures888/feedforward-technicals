@@ -38,11 +38,11 @@ class EncoderForSeqRec(nn.Module):
         self.item_pooler = SASRecPooler(d_in=hidden_size, d_model=256) if args.item_pooling == 'sas' \
             else Pooler(pooler_type=args.item_pooling, padding_side=args.padding_side, normalize=args.item_pool_prenorm)
         self.score_head = ScoringHead(hidden_size, args) if args.use_score_head else None
-        self.score_mix_lam = args.score_mix_lam if args.encoder_method == 'whiten_mix_bi' else None
+        self.score_mix_lam = args.score_mix_lam if args.encoder_method == 'bi_mix_topk_mean' else None
         self.score_redun_lam = args.score_redun_lam
         self.score_redun_temp = self.similarity_temp
         self.redun_sim_thresh = args.redun_sim_thresh
-        self.mean_pooler = Pooler(pooler_type='mean') if args.encoder_method == 'whiten_mix_bi' else None
+        self.mean_pooler = Pooler(pooler_type='mean') if args.encoder_method == 'bi_mix_topk_mean' else None
         self.centroid_pooler = None
         if args.item_pooling == 'topk':
             self.centroid_pooler = TopKPooler(k=args.pooling_topk)
@@ -52,7 +52,8 @@ class EncoderForSeqRec(nn.Module):
             self.item_embedding = nn.Embedding.from_pretrained(embeddings, freeze=freeze, padding_idx=0)
             print('Initalized item embeddings from vectors.')
         
-    def forward(self, 
+    def forward(
+        self, 
         input_ids: Optional[torch.Tensor] = None,
         attention_mask: Optional[torch.Tensor] = None,
         candidate_item_mask: Optional[torch.Tensor] = None, # bi-encoder train only
